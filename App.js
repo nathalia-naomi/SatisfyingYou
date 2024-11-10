@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   text: {
+    fontFamily: 'AveriaLibre-Regular',
     fontSize: 24,
     marginBottom: 20,
   },
