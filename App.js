@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { SafeAreaView, Text, Button, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
 
 const App = () => {
   const [message, setMessage] = useState('Olá, mundo!')
@@ -9,10 +11,15 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>{message}</Text>
-      <Button title="Clique aqui" onPress={handlePress} />
-    </SafeAreaView>
+    
+       
+     
+     <SafeAreaView style={styles.container}>
+          <Text style={styles.text}>{message}</Text>
+          <Icon name="face" size={60} color="#000000" />
+          <Button title="Clique aqui" onPress={handlePress} />
+      </SafeAreaView>
+     
   )
 }
 
