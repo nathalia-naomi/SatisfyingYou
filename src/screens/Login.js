@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
+import React, { useState } from 'react'
+import { View, TextInput, Button, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import globalStyles from '../styles/globalStyles'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,10 +19,11 @@ const Login = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+    <View style={globalStyles.container}>
+      <Text style={styles.title}>Satisfying.you</Text>
 
       <TextInput
+        label="E-mail"
         style={styles.input}
         placeholder="E-mail"
         keyboardType="email-address"
