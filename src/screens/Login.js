@@ -1,22 +1,34 @@
 import React, { useState } from 'react'
-import { View, TextInput, Button, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import { View, Button, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import { TextInput } from 'react-native-paper'
 import globalStyles from '../styles/globalStyles'
+import Botao from '../components/Botao'
+import Input from '../components/InputEmail'
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
 
-  // Função de validação simples
-  const handleLogin = () => {
+ // Função de validação simples
+  /*const handleLogin = () => {
     if (!email || !senha) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos!');
       return;
-    }
+    }*/
+const Login = (props) => {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+ 
 
     // Simulação de sucesso no login
     Alert.alert('Sucesso', 'Você entrou com sucesso!');
     // Aqui você pode redirecionar para outra tela ou fazer autenticação real
-  };
+  
+
+  const navegarHome = () => {
+      props.navigation.navigate('Home')
+  }
+  const voltar =()=>{
+      props.navigation.navigate('Login')
+  }
 
   return (
     <View style={globalStyles.container}>
@@ -39,12 +51,14 @@ const Login = () => {
         onChangeText={setSenha}
       />
 
-      <Button title="Entrar" onPress={handleLogin} />
+      
+<Button title="Entrar" onPress={navegarHome} />
+
 
       <Text style={styles.footerText}>Esqueceu a senha?</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
