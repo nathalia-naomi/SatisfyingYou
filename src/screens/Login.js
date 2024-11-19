@@ -1,44 +1,39 @@
 import React, { useState } from 'react'
-import { View, Button, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native'
+import { View, Button, Text, StyleSheet } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import globalStyles from '../styles/globalStyles'
-import Botao from '../components/Botao'
-import Input from '../components/InputEmail'
+import InputEmail from '../components/InputEmail'
 
-
- // Função de validação simples
-  /*const handleLogin = () => {
-    if (!email || !senha) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos!');
-      return;
-    }*/
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
 
- 
-
-    // Simulação de sucesso no login
-    Alert.alert('Sucesso', 'Você entrou com sucesso!');
-    // Aqui você pode redirecionar para outra tela ou fazer autenticação real
-  
+  const login = () => {
+    if (email && senha) {
+      navegarHome();
+      setErro('');
+    } else {
+      setErro('E-mail e/ou senha inválidos');
+    }
+  }
 
   const navegarHome = () => {
-      props.navigation.navigate('Home')
+    props.navigation.navigate('Home');
   }
-  const voltar =()=>{
-      props.navigation.navigate('Login')
+  const navegarNovaConta = () => {
+    props.navigation.navigate('NovaConta');
+  }
+  const navegarRecuperarSenha = () => {
+    props.navigation.navigate('RecuperarSenha');
   }
 
   return (
     <View style={globalStyles.container}>
       <Text style={styles.title}>Satisfying.you</Text>
+//      add icon
 
-      <TextInput
-        label="E-mail"
-        style={styles.input}
-        placeholder="E-mail"
-        keyboardType="email-address"
+      <InputEmail
         value={email}
         onChangeText={setEmail}
       />
@@ -50,12 +45,11 @@ const Login = (props) => {
         value={senha}
         onChangeText={setSenha}
       />
+      <Text style={styles.title}>{erro}</Text>
 
-      
-<Button title="Entrar" onPress={navegarHome} />
-
-
-      <Text style={styles.footerText}>Esqueceu a senha?</Text>
+      <Button title="Entrar" onPress={login} />
+      <Button title="Nova Conta" onPress={navegarNovaConta} />
+      <Button title="Esqueci minha senha" onPress={navegarRecuperarSenha} />
     </View>
   );
 }
