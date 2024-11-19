@@ -37,7 +37,7 @@ const NovaConta = (props) => {
       />
 
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Senha"
         secureTextEntry
         value={senha}
@@ -45,13 +45,13 @@ const NovaConta = (props) => {
       />
 
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Repetir Senha"
         secureTextEntry
         value={confirmarSenha}
         onChangeText={setConfirmarSenha}
       />
-      <Text style={styles.title}>{erro}</Text>
+      <Text style={globalStyles.errorText}>{erro}</Text>
       <Button title="Cadastrar" onPress={novaConta} />
 
     </View>
