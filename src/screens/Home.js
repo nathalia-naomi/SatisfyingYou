@@ -1,24 +1,27 @@
 import React from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
-import globalStyles from '../styles/globalStyles';  // Importando os estilos globais
+import { View, Button, TextInput } from 'react-native';
+import globalStyles from '../styles/globalStyles';
 
-const Home = (props) => {
+const Home = props => {
+  const novaPesquisa = () => {
+    props.navigation.navigate('NovaPesquisa');
+  };
 
-  const voltar =()=>{
-    props.navigation.goBack()
-  }
+  const voltar = () => {
+    props.navigation.goBack();
+  };
+  
   return (
     <View style={globalStyles.container}>
-      <Text style={globalStyles.header}>Bem-vindo ao App!</Text>
-      <Text style={globalStyles.subheader}>Aqui está a página inicial.</Text>
+      {/* substituir por menu */}
+      <Button title="Voltar" onPress={voltar} />
 
       <TextInput
         style={globalStyles.input}
-        placeholder="Digite algo..."
+        placeholder="Insira o termo de busca"
       />
 
-      <Button title="Entrar" onPress={() => alert('Botão pressionado!')} />
-      <Button title="Voltar" onPress={voltar} />
+      <Button title="Nova Pesquisa" onPress={novaPesquisa} />
     </View>
   );
 };
