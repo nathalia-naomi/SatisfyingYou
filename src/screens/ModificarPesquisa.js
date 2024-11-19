@@ -3,10 +3,12 @@ import { View, Button, Text, StyleSheet, Alert, Modal } from 'react-native';
 import { TextInput } from 'react-native-paper'
 import globalStyles from '../styles/globalStyles';
 
-const ModificarPesquisa = (props) => {
-  const [nome, setNome] = useState('');
-  const [data, setData] = useState('');
-  const [imagem, setImagem] = useState('');
+export default function ModificarPesquisa({ route, navigation }) {
+  const {pesquisa} = route.params;
+
+  const [nome, setNome] = useState(pesquisa.nome);
+  const [data, setData] = useState(pesquisa.data);
+  const [imagem, setImagem] = useState(pesquisa.imagem);
   const [erroNome, setErroNome] = useState('');
   const [erroData, setErroData] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,7 +31,7 @@ const ModificarPesquisa = (props) => {
   }
 
   const voltar = () => {
-    props.navigation.goBack()
+    navigation.goBack()
   }
 
   return (
@@ -48,7 +50,6 @@ const ModificarPesquisa = (props) => {
       <TextInput
         style={globalStyles.input}
         placeholder="Data"
-        secureTextEntry
         value={data}
         onChangeText={setData}
       />
@@ -134,5 +135,3 @@ const stylesModal = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default ModificarPesquisa;

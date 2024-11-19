@@ -1,17 +1,14 @@
 import React from 'react';
-import {Alert} from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import {Card, Text} from 'react-native-paper';
 
-const CardPesquisa = ({nomePesquisa, dataPesquisa}) => {
+export default function CardPesquisa({item, onPress}) {
   return (
-    <Card onPress={()=>Alert.alert("pressed")}>
-      <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
+    <Card onPress={() => onPress(item)}>
+      <Card.Cover source={item.imagem} onError={() => console.log('Error loading image')} />
       <Card.Content>
-        <Text variant="titleLarge">{nomePesquisa}</Text>
-        <Text variant="bodyMedium">{dataPesquisa}</Text>
+        <Text variant="titleLarge">{item.nome}</Text>
+        <Text variant="bodyMedium">{item.data}</Text>
       </Card.Content>
     </Card>
   );
-};
-
-export default CardPesquisa;
+}
