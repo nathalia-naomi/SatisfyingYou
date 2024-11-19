@@ -58,33 +58,4 @@ const NovaConta = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '100%',
-    height: 45,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15,
-    paddingLeft: 10,
-    fontSize: 16,
-  },
-  footerText: {
-    marginTop: 20,
-    color: '#007bff',
-    textDecorationLine: 'underline',
-  },
-});
-
 export default NovaConta;
