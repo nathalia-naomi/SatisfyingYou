@@ -1,33 +1,38 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import globalStyles from '../styles/globalStyles';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function AcoesPesquisa({ route, navigation }) {
-  const {pesquisa} = route.params;
+const AcoesPesquisa = (props) => {
 
-  const modificarPesquisa = () => {
-    navigation.navigate('ModificarPesquisa', {pesquisa: pesquisa});
-  }
+  const titulo = props.route.params.screen;
 
-  const coletarDados = () => {
-    navigation.navigate('ColetarDados', {pesquisa: pesquisa});
-  }
-
-  const relatorio = () => {
-    navigation.navigate('Relatorio', {pesquisa: pesquisa});
-  }
-
-  const voltar = () => {
-    navigation.goBack()
-  }
-  
   return (
-    <View style={globalStyles.container}>
-      <Button title="<-" onPress={voltar} />
-      <Text style={globalStyles.header}>{pesquisa.nome}</Text>
-      <Button title="Modificar" onPress={modificarPesquisa} />
-      <Button title="Coletar dados" onPress={coletarDados} />
-      <Button title="Relatório" onPress={relatorio} />
+    <View style={{ flex: 1, backgroundColor: '#6A5ACD' }}>
+      <View style={globalStyles.header}>
+          <TouchableOpacity onPress={() => props.navigation.pop()}>
+          <Icon name="arrow-back" size={30} color="lightblue" />
+        </TouchableOpacity>
+        <Text style={globalStyles.title}>{titulo}</Text>
+      </View>
+        
+        <View style={globalStyles.buttonsContainer}>
+            <TouchableOpacity style={globalStyles.button} onPress={() => props.navigation.navigate('ModificarPesquisa')}>
+            <Icon name="edit-document" size={30} color="white" />
+            <Text style={globalStyles.buttonText}>Modificar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={globalStyles.button} onPress={() => props.navigation.navigate('Coleta', { screen: titulo })}>
+            <Icon name="library-add-check" size={30} color="white" />
+            <Text style={globalStyles.buttonText}>Coletar dados</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={globalStyles.button} onPress={() => props.navigation.navigate('Relatorio')}>
+            <Icon name="donut-large" size={30} color="white" />
+            <Text style={globalStyles.buttonText}>Relatório</Text>
+            </TouchableOpacity>
+        </View>
+        
     </View>
   );
 };
+
+
+export default AcoesPesquisa;

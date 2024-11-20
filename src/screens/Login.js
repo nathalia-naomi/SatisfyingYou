@@ -1,86 +1,93 @@
-import React, { useState } from 'react'
-import { View, Button, Text, StyleSheet } from 'react-native'
-import { TextInput } from 'react-native-paper'
-import globalStyles from '../styles/globalStyles'
-import InputEmail from '../components/InputEmail'
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import globalStyles from '../styles/globalStyles';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const login = () => {
-    if (email && senha) {
-      navegarHome();
-      setErro('');
-    } else {
-      setErro('E-mail e/ou senha inválidos');
-    }
-  }
+  const validarEmail = (email) => {
+    return /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
+  };
 
-  const navegarHome = () => {
-    props.navigation.navigate('Home');
-  }
-  const navegarNovaConta = () => {
+  const handleError = () => {
+    setErrorMessage('E-mail e/ou senha inválidos.');
+  };
+
+  const showNovaConta = () => {
     props.navigation.navigate('NovaConta');
-  }
-  const navegarRecuperarSenha = () => {
+  };
+
+  const showRecuperarSenha = () => {
     props.navigation.navigate('RecuperarSenha');
-  }
+  };
+
+  const showHome = (email, password) => {
+    if (validarEmail(email) && password !== '') {
+      props.navigation.navigate('Drawer', { email: email });
+    } else {
+      handleError();
+    }
+  };
 
   return (
-    <View style={globalStyles.container}>
-      <Text style={styles.title}>Satisfying.you</Text>
-//      add icon
+    <ScrollView contentContainerStyle={globalStyles.container}>
+      
+      
+      <View style={globalStyles.header}>
+        <Text style={globalStyles.header}> Satisfying.you </Text>
+        <Icon name="mood" size={40} color="white" />
+      </View>
 
-      <InputEmail
-        value={email}
-        onChangeText={setEmail}
-      />
+      <View style={globalStyles.area}>
+        <Text style={globalStyles.label}>E-mail</Text>
+        <TextInput
+          style={globalStyles.inputs}
+          placeholder="usuario@dominio.com"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
-      <Text style={styles.title}>{erro}</Text>
 
-      <Button title="Entrar" onPress={login} />
-      <Button title="Nova Conta" onPress={navegarNovaConta} />
-      <Button title="Esqueci minha senha" onPress={navegarRecuperarSenha} />
-    </View>
+        />
+      </View>
+
+      <View style={globalStyles.area}>
+        <Text style={globalStyles.label}>Senha</Text>
+        <TextInput
+          style={globalStyles.inputs}
+          placeholder="Senha"
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+
+        />
+        {errorMessage ? <Text style={globalStyles.errorText}>{errorMessage}</Text> : null}
+      </View>
+
+      
+
+      <TouchableOpacity style={globalStyles.button} onPress={() => showHome(email, password)}>
+        <Text style={globalStyles.buttonText}>Entrar</Text>
+      </TouchableOpacity>
+
+     
+        <TouchableOpacity style={globalStyles.buttonNc} onPress={showNovaConta}>
+          <Text style={globalStyles.buttonText}>Criar nova conta</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={globalStyles.buttonRs} onPress={showRecuperarSenha}>
+          <Text style={globalStyles.buttonText}>Esqueci a senha</Text>
+        </TouchableOpacity>
+      
+    </ScrollView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '100%',
-    height: 45,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15,
-    paddingLeft: 10,
-    fontSize: 16,
-  },
-  footerText: {
-    marginTop: 20,
-    color: '#007bff',
-    textDecorationLine: 'underline',
-  },
-});
+
 
 export default Login;

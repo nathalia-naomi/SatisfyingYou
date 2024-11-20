@@ -1,63 +1,65 @@
 import React from 'react';
-import {View, Button, TextInput, FlatList} from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import CardPesquisa from '../components/CardPesquisa';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image } from 'react-native';
 
-const Home = props => {
-  const mockData = [
-    {
-      id: '1',
-      nome: 'Meninas Digitais CPU',
-      data: '01/04/2022',
-      imagem: require('../../assets/images/meninas-digitais.png'),
-    },
-    {
-      id: '2',
-      nome: 'Secomp 2023',
-      data: '1010/2023',
-      imagem: require('../../assets/images/secomp.png'),
-    },
-    {
-      id: '3',
-      nome: 'Ubuntu 2022',
-      data: '05/06/2022',
-      imagem: require('../../assets/images/ubuntu.png'),
-    },
-  ];
+const Home = (props) => {
 
-  const abrirPesquisa = item => {
-    props.navigation.navigate('AcoesPesquisa', {props:props, pesquisa: item});
-  };
+    // Simulação de dados de pesquisa
+    const researchData = [
+        { title: 'SECOMP 2023', date: '10/10/2023', image: require('../../assets/images/secomp-icon.png') },
+        { title: 'UBUNTU 2022', date: '05/06/2022', image: require('../../assets/images/ubuntu-icon.png') },
+        { title: 'MENINAS CPU', date: '01/04/2022', image: require('../../assets/images/meninas-icon.png') }
+    ];
 
-  const novaPesquisa = () => {
-    props.navigation.navigate('NovaPesquisa');
-  };
+    const showNovaPesquisa = () => {
+        props.navigation.navigate('NovaPesquisa')
+    }
 
-  const voltar = () => {
-    props.navigation.goBack();
-  };
+    const showAcoesPesquisa = (titulo, data) => {
+        props.navigation.navigate('AcoesPesquisa', { screen: titulo, date: data })
+    }
 
-  return (
-    <View style={globalStyles.container}>
-      {/* substituir por menu */}
-      <Button title="Voltar" onPress={voltar} />
+    return (
+        
+        <View style={globalStyles.container}>
+        
+            <View style={globalStyles.searchContainer}>
+                <View style={globalStyles.inputContainer}>
+                    <Image source={require('../../assets/icons/search-icon.png')} style={globalStyles.searchIcon} />
+                    <TextInput
+                        style={globalStyles.input}
+                        placeholder="Insira o termo de busca..."
+                    />
+                </View>
+                <TouchableOpacity style={globalStyles.searchButton}>
+                </TouchableOpacity>
+            </View>
 
-      <TextInput
-        style={globalStyles.input}
-        placeholder="Insira o termo de busca"
-      />
+            <ScrollView
+                horizontal={true} 
+                showsHorizontalScrollIndicator={false} 
+                style={globalStyles.scrollContainer} 
+            >
+                {researchData.map((research, index) => (
+                    <TouchableOpacity 
+                        key={index}
+                        style={globalStyles.researchCard}
+                        onPress={() => {showAcoesPesquisa(research.title)}} >
+                        <Image source={research.image} style={globalStyles.cardImage} resizeMode="contain" />
+                        <Text style={[globalStyles.title, { color: '#3F92C5' }]}>{research.title}</Text>
+                        <Text style={globalStyles.date}>{research.date}</Text>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
 
-      <FlatList
-        data={mockData}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <CardPesquisa item={item} onPress={abrirPesquisa} />
-        )}
-      />
-
-      <Button title="Nova Pesquisa" onPress={novaPesquisa} />
-    </View>
-  );
+            <TouchableOpacity
+                style={globalStyles.button}
+                onPress={showNovaPesquisa} >
+                <Text style={globalStyles.buttonText}>NOVA PESQUISA</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
+
+
 
 export default Home;
